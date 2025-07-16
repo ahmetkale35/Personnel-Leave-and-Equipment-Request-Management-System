@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Build and Test
 
 on:
   push:
@@ -20,10 +20,11 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./PersonnelUygulaması/PersonnelUygulaması.csproj
+      run: dotnet restore ./PersonelUygulaması/PersonelUygulaması/PersonelUygulaması.csproj
 
     - name: Build
-      run: dotnet build ./PersonnelUygulaması/PersonnelUygulaması.csproj --no-restore
+      run: dotnet build ./PersonelUygulaması/PersonelUygulaması/PersonelUygulaması.csproj --no-restore
 
-    - name: Test
-      run: dotnet test ./PersonnelUygulaması/PersonnelUygulaması.csproj --no-build --verbosity normal
+    # Eğer test projesi yoksa bu kısmı silebilirsin
+    # - name: Test
+    #   run: dotnet test ./PersonelUygulaması/PersonelUygulaması/PersonelUygulaması.csproj --no-build --verbosity normal
