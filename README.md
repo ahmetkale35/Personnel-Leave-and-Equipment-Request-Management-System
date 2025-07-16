@@ -127,6 +127,23 @@ https://localhost:5001/Account/CreateSampleUser
 
 <img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/9db73e24-532c-4bdd-99e0-9d2f0395c30e" />
 
+<img width="2552" height="821" alt="1231" src="https://github.com/user-attachments/assets/81bb754b-9081-4c5e-ac8a-9adce752a7cd" />
+
+<img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/48f6d69e-996c-4542-b451-c44e555c25a0" />
+
+<img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/a517ef9c-2525-48a9-ac9f-07eff258090f" />
+
+
+## Calendar Feature
+
+The application includes a **Leave Calendar** that visually highlights approved leave days for users. Specifically:
+
+- Only the days with **approved leave requests** are marked in green on the calendar.
+- This allows personnel and management to quickly identify when employees are on leave.
+- The calendar improves planning by providing a clear, at-a-glance overview of approved absences.
+
+This simple yet effective feature enhances transparency and helps avoid scheduling conflicts.
+
 
 ## Contributing
 
