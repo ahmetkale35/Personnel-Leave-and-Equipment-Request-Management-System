@@ -40,7 +40,8 @@ This is a role-based web application developed with **ASP.NET MVC** and **Entity
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/ahmetkale35/Personnel-Leave-and-Equipment-Request-Management-System.git
+
 
 2. **Configure the database connection string in appsettings.json or Context class.**
 
