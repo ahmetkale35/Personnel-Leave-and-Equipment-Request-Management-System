@@ -129,10 +129,9 @@ https://localhost:5001/Account/CreateSampleUser
 
 <img width="2552" height="821" alt="1231" src="https://github.com/user-attachments/assets/81bb754b-9081-4c5e-ac8a-9adce752a7cd" />
 
-<img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/48f6d69e-996c-4542-b451-c44e555c25a0" />
+<img width="2543" height="1035" alt="Ekran görüntüsü 2025-07-16 110441" src="https://github.com/user-attachments/assets/c3516022-a003-40f5-8235-12e2210b2438" />
 
-<img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/a517ef9c-2525-48a9-ac9f-07eff258090f" />
-
+<img width="2520" height="1204" alt="Ekran görüntüsü 2025-07-16 110108" src="https://github.com/user-attachments/assets/33fead81-ba46-46cc-b722-c39f4d94e30f" />
 
 ## Calendar Feature
 
