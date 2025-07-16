@@ -1,0 +1,80 @@
+﻿@model PersonelUygulaması.Models.EquipmentRequests
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Ekipman Talep Oluştur";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<style>
+    .form-container {
+        background-color: antiquewhite;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .custom-title {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #2c3e50;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        display: inline-block;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="custom-title text-center mb-4">📋 Ekipman Taleplerim</h2>
+
+    <div class="form-container">
+        @using (Html.BeginForm("Create", "Equipment", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="EquipmentItemId" class="form-label">Ekipman Tipi</label>
+                <select asp-for="EquipmentItemId" class="form-select" asp-items="ViewBag.EquipmentList" required>
+                    <option value="">Lütfen bir ekipman seçiniz</option>
+                </select>
+                <div class="invalid-feedback">
+                    Lütfen ekipman tipi seçiniz.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Adet" class="form-label">Adet</label>
+                <input asp-for="Adet" type="number" min="1" class="form-control" required />
+                <div class="invalid-feedback">
+                    Adet alanı zorunludur ve 1’den küçük olamaz.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Açıklama" class="form-label">Açıklama</label>
+                <textarea asp-for="Açıklama" class="form-control" rows="3" placeholder="Ekipmanla ilgili açıklama yazınız..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Talep Gönder</button>
+        }
+    </div>
+</div>
+
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>

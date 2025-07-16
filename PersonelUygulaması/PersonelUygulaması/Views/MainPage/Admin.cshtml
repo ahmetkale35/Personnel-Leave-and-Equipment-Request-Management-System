@@ -1,0 +1,88 @@
+﻿@using PersonelUygulaması.Models;
+@{
+    ViewData["Title"] = "Yönetici Paneli";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<style>
+    .card {
+        border-radius: 15px;
+        background-color: #fafafa;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transform: translateY(-5px);
+        }
+
+    .btn {
+        border-radius: 15px;
+        min-width: 140px;
+        font-weight: 600;
+    }
+
+    .card-title {
+        font-weight: 700;
+    }
+
+    .card-text {
+        line-height: 1.5;
+    }
+    .welcome-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #2c3e50;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+        margin-bottom: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+        .welcome-title .username {
+            color: #0d6efd;
+            font-weight: 700;
+        }
+
+    .welcome-subtitle {
+        font-size: 1.2rem;
+        color: #343a40;
+        font-style: italic;
+        font-weight: 600;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h2 class="welcome-title">👨‍💼 Hoş Geldiniz, <span class="username">@User.Identity.Name</span></h2>
+        <p class="welcome-subtitle">Lütfen yapmak istediğiniz işlemi seçin.</p>
+    </div>
+
+    <br />
+    <div class="row justify-content-center g-4 mb-5">
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card border-primary h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📋 İzin Taleplerini Yönet</h5>
+                    <p class="card-text">Tüm çalışanların izin taleplerini görüntüleyin ve onaylayın veya reddedin.</p>
+                    <a href="/Leave/Pending" class="btn btn-primary mt-4">İzin Talepleri</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card border-warning h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🧰 Ekipman Taleplerini Yönet</h5>
+                    <p class="card-text">Tüm çalışanların ekipman taleplerini gözden geçirin ve işlem yapın.</p>
+                    <a href="/Equipment/Pending" class="btn btn-warning text-white">Ekipman Talepleri</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

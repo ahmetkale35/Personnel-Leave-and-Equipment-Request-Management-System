@@ -1,0 +1,120 @@
+﻿@model List<PersonelUygulaması.Models.LeaveRequests>
+
+@{
+    ViewData["Title"] = "Pending Leave Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<style>
+    .table-custom-shadow {
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        border-radius: 0.5rem;
+    }
+</style>
+<style>
+    
+    .btn-danger.action-button {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        border-width: 1px;
+    }
+
+    
+    .action-button {
+        min-width: 90px;
+    }
+
+    .custom-title {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #2c3e50;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        display: inline-block;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
+
+<div class="container mt-5">
+    <h2 class="custom-title text-center mb-4">📝 Tüm İzin Talepleri</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Şu anda kayıtlı herhangi bir izin talebi bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover table-custom-shadow align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Kullanıcı</th>
+                    <th>İzin Tipi</th>
+                    <th>Başlangıç Tarihi</th>
+                    <th>Bitiş Tarihi</th>
+                    <th>Toplam Gün</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@(item.User?.AdSoyad ?? "Bilinmiyor")</td>
+                        <td>@(item.LeaveType?.Ad ?? "Bilinmiyor")</td>
+                        <td>@item.BaslangicTarihi.ToString("dd.MM.yyyy")</td>
+                        <td>@item.BitisTarihi.ToString("dd.MM.yyyy")</td>
+                        <td>@(item.BitisTarihi.Subtract(item.BaslangicTarihi).Days + 1)</td>
+                        <td>@item.Aciklama</td>
+                        <td>
+                            @switch (item.Durum)
+                            {
+                                case "Bekliyor":
+                                    <span class="badge bg-warning text-dark">Bekliyor</span>
+                                    break;
+                                case "Onaylandı":
+                                    <span class="badge bg-success">Onaylandı</span>
+                                    break;
+                                case "Reddedildi":
+                                    <span class="badge bg-danger">Reddedildi</span>
+                                    break;
+                                case "İptal Edildi":
+                                    <span class="badge bg-secondary">İptal Edildi</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">@item.Durum</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @if (item.Durum == "Bekliyor")
+                            {
+                                <div style="display: flex; gap: 8px; justify-content: center;">
+                                    <form method="post" asp-action="Approve" asp-route-id="@item.id" onsubmit="return confirm('Talebi onaylamak istediğinize emin misiniz?');">
+                                        <button type="submit" class="btn btn-success btn-sm action-button">✅ Onayla</button>
+                                    </form>
+                                    <form method="post" asp-action="Reject" asp-route-id="@item.id" onsubmit="return confirm('Talebi reddetmek istediğinize emin misiniz?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm action-button">❌ Reddet</button>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

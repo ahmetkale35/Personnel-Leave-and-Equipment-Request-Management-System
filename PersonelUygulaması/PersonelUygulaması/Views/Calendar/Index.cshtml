@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "İzin Takvimi";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="custom-title" style="margin-bottom: 60px;">📅 İzin Takvimi</h2>
+    <div id="calendar"></div>
+</div>
+
+<style>
+    #calendar {
+        max-width: 900px;
+        margin: 0 auto;
+        height: 650px;
+        background-color: floralwhite;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    .custom-title {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #2c3e50;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        display: block;
+        width: 900px;
+        margin: 0 auto 30px auto;
+        padding-bottom: 8px;
+        letter-spacing: 1px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+    }
+
+</style>
+
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" /> 
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            console.log("calendarEl bulundu mu?", calendarEl);
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'tr',
+                height: 650,
+                events: '/Calendar/GetLeaveEvents',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: {
+                    today: 'Bugün',
+                    month: 'Ay',
+                    week: 'Hafta',
+                    day: 'Gün',
+                    list: 'Liste'
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}

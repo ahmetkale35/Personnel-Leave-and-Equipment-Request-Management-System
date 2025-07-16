@@ -1,0 +1,123 @@
+﻿@model List<PersonelUygulaması.Models.EquipmentRequests>
+
+@{
+    ViewData["Title"] = "Tüm Ekipman Talepleri";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+<style>
+    .custom-title {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #2c3e50;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        display: inline-block;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    thead input {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 0.85rem;
+    }
+
+</style>
+
+<div class="container mt-5">
+    <h2 class="custom-title text-center mb-4">📝 Tüm Ekipman Talepleri</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Şu anda kayıtlı herhangi bir ekipman talebi bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <table id="requestsTable" class="table table-bordered table-hover shadow-lg align-middle text-center" style="box-shadow: 0 8px 24px rgba(0,0,0,0.35); border-radius: 8px;">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Kullanıcı</th>
+                    <th>Ekipman Tipi</th>
+                    <th>Adet</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>Onaylayan</th>
+                    <th>Talep Tarihi</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@(item.User?.AdSoyad ?? "Bilinmiyor")</td>
+                        <td>@(item.EquipmentItem?.Ad ?? "Bilinmiyor")</td>
+                        <td>@item.Adet</td>
+                        <td>@item.Açıklama</td>
+                        <td>
+                            @switch (item.Durum)
+                            {
+                                case "Bekliyor":
+                                    <span class="badge bg-warning text-dark">Bekliyor</span>
+                                    break;
+                                case "Onaylandı":
+                                    <span class="badge bg-success">Onaylandı</span>
+                                    break;
+                                case "Reddedildi":
+                                    <span class="badge bg-danger">Reddedildi</span>
+                                    break;
+                                case "İptal Edildi":
+                                    <span class="badge bg-secondary">İptal Edildi</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">@item.Durum</span>
+                                    break;
+                            }
+                        </td>
+                        <td>@(item.Onaylayan?.AdSoyad ?? "-")</td>
+                        <td>@item.TalepTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            @if (item.Durum == "Bekliyor")
+                            {
+                                <form method="post" asp-action="Approve" asp-route-id="@item.Id" style="display:inline;" onsubmit="return confirm('Talebi onaylamak istediğinize emin misiniz?');">
+                                    <button type="submit" class="btn btn-success btn-sm action-button">✅ Onayla</button>
+                                </form>
+                                <form method="post" asp-action="Reject" asp-route-id="@item.Id" style="display:inline;" onsubmit="return confirm('Talebi reddetmek istediğinize emin misiniz?');">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm action-button">❌ Reddet</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let table = $('#requestsTable').DataTable({
+                fixedHeader: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json'
+                }
+            });
+
+        });
+    </script>
+}

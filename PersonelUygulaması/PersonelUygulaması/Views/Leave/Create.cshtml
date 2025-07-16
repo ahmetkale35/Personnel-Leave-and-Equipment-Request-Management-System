@@ -1,0 +1,132 @@
+﻿@model PersonelUygulaması.Models.LeaveRequests
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+    ViewBag.LeaveTypes = ViewBag.LeaveTypes ?? new List<SelectListItem>();
+}
+
+<style>
+    
+    .form-container {
+        background-color: antiquewhite;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .custom-title {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #2c3e50;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        display: inline-block;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="custom-title mb-4">📋 İzin Talep Formu</h2>
+
+    <div class="form-container">
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+
+            <div class="mb-3">
+                <label asp-for="LeaveTypeId" class="form-label">İzin Tipi</label>
+                <select asp-for="LeaveTypeId" class="form-select" asp-items="@(new SelectList(ViewBag.LeaveTypes, "Id", "Ad"))" required>
+                    <option value="">Lütfen bir izin tipi seçiniz</option>
+                </select>
+                <div class="invalid-feedback">
+                    Lütfen izin tipi seçiniz.
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label asp-for="BaslangicTarihi" class="form-label">Başlangıç Tarihi</label>
+                    <input asp-for="BaslangicTarihi" type="date" class="form-control" required />
+                    <div class="invalid-feedback">
+                        Başlangıç tarihi zorunludur.
+                    </div>
+                </div>
+                <div class="col">
+                    <label asp-for="BitisTarihi" class="form-label">Bitiş Tarihi</label>
+                    <input asp-for="BitisTarihi" type="date" class="form-control" required />
+                    <div class="invalid-feedback">
+                        Bitiş tarihi zorunludur.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Aciklama" class="form-label">Açıklama</label>
+                <textarea asp-for="Aciklama" class="form-control" rows="3" placeholder="İzin nedeninizi yazınız..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">İzin Talep Et</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const today = new Date().toISOString().split('T')[0];
+        const baslangicInput = document.querySelector('input[name="BaslangicTarihi"]');
+        const bitisInput = document.querySelector('input[name="BitisTarihi"]');
+
+        
+        baslangicInput.setAttribute('min', today);
+
+        baslangicInput.addEventListener('change', function () {
+            const selectedStartDate = new Date(this.value);
+
+            if (isNaN(selectedStartDate)) {
+                bitisInput.value = '';
+                bitisInput.removeAttribute('min');
+                bitisInput.removeAttribute('max');
+                return;
+            }
+
+            
+            const minEndDate = new Date(selectedStartDate);
+            minEndDate.setDate(minEndDate.getDate() + 1);
+
+            
+            const maxEndDate = new Date(selectedStartDate);
+            maxEndDate.setDate(maxEndDate.getDate() + 14);
+
+            
+            const formatDate = (date) => date.toISOString().split('T')[0];
+
+            bitisInput.value = '';
+            bitisInput.setAttribute('min', formatDate(minEndDate));
+            bitisInput.setAttribute('max', formatDate(maxEndDate));
+        });
+    });
+</script>
+
+
+
+
+
+@* /*
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })();
+</script>
+*/ *@
