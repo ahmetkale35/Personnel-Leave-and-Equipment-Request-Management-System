@@ -77,6 +77,39 @@ This is a role-based web application developed with **ASP.NET MVC** and **Entity
 - Database operations use Entity Framework ORM to avoid SQL injection vulnerabilities.  
 - Caching for sensitive pages is disabled to prevent sensitive data from being stored in browser caches, especially after logout.
 
+## Seed Users Creation (CreateSampleUser Action)
+
+The project includes an action named `CreateSampleUser` in the `AccountController` to easily seed initial users into the database.
+
+### What Does It Do?
+
+- Automatically adds sample users (Admin, IT staff, employees) if they don't already exist in the database.
+- Helps quickly set up test users when running the project for the first time.
+- Creates the following users:
+
+| Full Name    | Email              | Password | RoleId (Role)      |
+|--------------|--------------------|----------|--------------------|
+| Ahmet Yılmaz | ahmet@personel.com | 123      | 2 (Employee)       |
+| Ayse Tek     | ayse@personel.com  | 1234     | 2 (Employee)       |
+| Burak Aslan  | burak@bt.com       | 123      | 3 (IT Staff)       |
+| Ali Yıldız   | ali@admin.com      | 321      | 1 (Admin)          |
+
+### How to Use
+
+After running the project, open your browser and navigate to:
+
+https://localhost:5001/Account/CreateSampleUser
+
+
+- If the users already exist, the action will skip adding duplicates and return `"User already exists."`
+- If the users are successfully added, you will see `"Admin user successfully added."`
+
+### Security Notice
+
+- This action should only be used in development and testing environments.
+- Access to this endpoint should be disabled or removed in production.
+- Otherwise, unauthorized users could create new users and compromise the system.
+
   ## Sample User Accounts
 
 | Role     | Email                | Password     |
