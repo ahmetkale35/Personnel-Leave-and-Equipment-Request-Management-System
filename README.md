@@ -76,6 +76,18 @@ This is a role-based web application developed with **ASP.NET MVC** and **Entity
 - Database operations use Entity Framework ORM to avoid SQL injection vulnerabilities.  
 - Caching for sensitive pages is disabled to prevent sensitive data from being stored in browser caches, especially after logout.
 
+  ## Sample User Accounts
+
+| Role     | Email                | Password     |
+| -------- | -------------------- | ------------ |
+| Admin    | ali@admin.com        | 321          |
+| Employee | ayse@personel.com    | 1234         |
+| IT Staff | burak@bt.com         | 123          |
+
+> **Note:** Passwords are stored securely as hashed values in the database.  
+> Use these credentials only for testing purposes in a development environment.
+
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit pull requests for improvements or bug fixes. Make sure to follow coding standards and include necessary tests.
