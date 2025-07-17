@@ -122,7 +122,7 @@ https://localhost:5001/Account/CreateSampleUser
 > Use these credentials only for testing purposes in a development environment.
 
 
-## ScreenShoots
+## ScreenShots
 <img width="1106" height="1198" alt="31" src="https://github.com/user-attachments/assets/edd2a92b-75ff-4dc3-81c9-58c9d94b733d" />
 
 <img width="2533" height="1217" alt="23213" src="https://github.com/user-attachments/assets/9db73e24-532c-4bdd-99e0-9d2f0395c30e" />
